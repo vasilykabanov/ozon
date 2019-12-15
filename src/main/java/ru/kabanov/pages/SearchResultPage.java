@@ -13,7 +13,7 @@ import java.util.TreeMap;
  */
 public class SearchResultPage extends BasePage {
 
-    @FindBy(xpath = "//*[@class='tile m-list m-border']")
+    @FindBy(xpath = "//*[@class='a3f a3f0']")
     List<WebElement> productList;
 
     @FindBy(xpath = "//a[@href='/cart']")
@@ -29,7 +29,6 @@ public class SearchResultPage extends BasePage {
                 String name = productList.get(i).findElement(By.xpath(".//span[@data-test-id='tile-name']")).getText();
                 String price = productList.get(i)
                         .findElement(By.xpath(".//span[@data-test-id='tile-price']")).getText();
-//                        .replaceAll("[^0-9]", "");
                 selectedProducts.put(price, name);
                 waitElementToBeClickable(productList.get(i).findElement(By.xpath(".//div[contains(text(),'В корзину')]"))).click();
             }

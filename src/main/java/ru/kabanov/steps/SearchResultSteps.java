@@ -10,7 +10,7 @@ public class SearchResultSteps {
 
     SearchResultPage searchResultPage = new SearchResultPage();
 
-    @Step("Добавить в корзину первые {0} {1} товары")
+    @Step("Добавить в корзину {0} {1} товары")
     public void stepInputInCart(String count, String parity) {
         if (parity.equalsIgnoreCase("нечетных")) {
             searchResultPage.inputInCart(count, false);

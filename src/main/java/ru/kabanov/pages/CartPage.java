@@ -1,6 +1,7 @@
 package ru.kabanov.pages;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.kabanov.steps.BaseSteps;
@@ -16,8 +17,8 @@ public class CartPage extends BasePage {
     @FindBy(xpath = "//a[@class='a5c8']/span")
     public List<WebElement> productsInCart;
 
-    @FindBy(xpath = "//div[@class='ap0']//span[2]")
-    public WebElement countProductinCart;
+//    @FindBy(xpath = "//*[contains(text(), '8 товаров')]")
+//    public WebElement countProductinCart;
 
     @FindBy(xpath = "//span[contains(text(), 'Удалить выбранные')]")
     public WebElement deleteAllProducts;
@@ -39,7 +40,9 @@ public class CartPage extends BasePage {
     }
 
     public void checkCountProduct(String countProduct) {
-        Assert.assertTrue(waitElementIsDisplayed(countProductinCart).getText().contains(countProduct));
+//        Assert.assertTrue(waitElementIsDisplayed(countProductinCart).getText().contains(countProduct));
+        Assert.assertTrue(waitVisibilityOfElementLocated(By.xpath("//*[contains(text(), '"+ countProduct +"')]"))
+                .getText().contains(countProduct));
     }
 
     public void deleteAllProducts(){

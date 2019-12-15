@@ -1,5 +1,6 @@
 package ru.kabanov.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -9,18 +10,19 @@ import org.openqa.selenium.support.FindBy;
 public class MainPage extends BasePage {
 
 
-    @FindBy(xpath = "//div[@class='a8x3']/input")
+    @FindBy(xpath = "//input[@placeholder='Искать на Ozon']")
     public WebElement mainSearchLine;
 
-    @FindBy(xpath = "//div[@class='search-button-wrap']")
+    @FindBy(xpath = "//button[@type='submit'][1]")
     public WebElement searchButton;
 
-    @FindBy(xpath = "//*[@class='close']")
+    @FindBy(xpath = "//button[@aria-label='Закрыть сообщение']")
     public WebElement cookiesCloseButton;
 
     public void clickCookiesClose() {
-        if (cookiesCloseButton.isDisplayed())
-        waitElementIsDisplayed(cookiesCloseButton).click();
+        if (isElementPresent(By.xpath("//button[@aria-label='Закрыть сообщение']"))) {
+            waitElementToBeClickable(cookiesCloseButton).click();
+        }
     }
 
     public void clickSearch() {

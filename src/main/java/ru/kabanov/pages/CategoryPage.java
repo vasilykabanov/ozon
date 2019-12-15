@@ -5,9 +5,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.kabanov.steps.BaseSteps;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by yasup on 30.11.2019.
@@ -29,7 +32,7 @@ public class CategoryPage extends BasePage {
     @FindBy(xpath = "//span[@data-test-id='filter-block-brand-show-all']")
     public WebElement checkAllBrands;
 
-    @FindBy(xpath = "//div[@class='input-wrap b3o5']/input")
+    @FindBy(xpath = "//div[contains(text(), 'Бренды')]/..//input[1]")
     public WebElement searchBrand;
 
     public void limitPrice(String limit) {
@@ -51,7 +54,7 @@ public class CategoryPage extends BasePage {
             for (WebElement item : checkBoxes) {
                 if (item.findElement(By.xpath("//span[contains(text(), '" + checkBoxName + "')]")).getText().equalsIgnoreCase(checkBoxName)) {
                     item.findElement(By.xpath("//label//span[contains(text(), '" + checkBoxName + "')]")).click();
-                    Thread.sleep(1000);
+                    waitPageLoaded();
                     return;
                 }
             }
@@ -66,5 +69,10 @@ public class CategoryPage extends BasePage {
     public void chooseBrands(String nameBrand) throws InterruptedException {
             fieldInput(searchBrand, nameBrand);
             clickCheckBoxes(nameBrand);
+    }
+
+    public void waitPageLoaded() {
+        new WebDriverWait(BaseSteps.getDriver(), 45)
+                .until((ExpectedCondition<Boolean>) webDriver -> !isElementPresent(By.xpath("//div[contains(@class , 'parandja')]")));
     }
 }
